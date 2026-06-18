@@ -1,0 +1,8 @@
+{
+  "name": "ThreatRadar OSINT",
+  "description": "An ultra-lightweight real-time visual web threat monitor and OSINT security analysis dashboard with dynamic mapping and IP vulnerability profiling.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
