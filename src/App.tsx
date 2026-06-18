@@ -341,12 +341,12 @@ PASO A - Preparar el directorio en tu Laptop:
    NUNCA se suba al GitHub público. El \`.env.example\` sí se sube como plantilla instructiva.
 
 4. Crear el repositorio en GitHub:
-   - Ve a GitHub y crea un nuevo repositorio llamado: \`threadradar\`
+   - Ve a GitHub y crea un nuevo repositorio llamado: \`threatradar\`
    - IMPORTANTE: Selecciónalo como **PRIVATE** (Privado). Esto garantiza la
      protección absoluta de tu propiedad intelectual de fundador para que no
      sea copiada libremente por extraños.
    - Vincula tu máquina local a este repositorio privado de GitHub:
-     $ git remote add origin git@github.com:tu-usuario/threadradar.git
+     $ git remote add origin git@github.com:tu-usuario/threatradar.git
      $ git branch -M main
      $ git add .
      $ git commit -m "feat: core telemetry hub release"
@@ -364,16 +364,16 @@ $ sudo apt install -y nodejs nginx git certbot python3-certbot-nginx
 
 PASO 2: Generar y emparejar la SSH Key de tu Hetzner con tu GitHub
 Para que tu servidor pueda jalar código privado limpiamente de forma segura:
-$ ssh-keygen -t ed25519 -C "server-hetzner@threadradar"
+$ ssh-keygen -t ed25519 -C "server-hetzner@threatradar"
 $ cat ~/.ssh/id_ed25519.pub
 (Copia esta clave, ve a GitHub -> Settings de tu repositorio privado -> Deploy keys,
  agrégala como nueva clave con acceso de lectura).
 
 PASO 3: Clonar el proyecto y desplegarlo en el VPS Hetzner
-$ sudo mkdir -p /var/www/threadradar
-$ sudo chown -R $USER:$USER /var/www/threadradar
-$ git clone git@github.com:tu-usuario/threadradar.git /var/www/threadradar
-$ cd /var/www/threadradar
+$ sudo mkdir -p /var/www/threatradar
+$ sudo chown -R $USER:$USER /var/www/threatradar
+$ git clone git@github.com:tu-usuario/threatradar.git /var/www/threatradar
+$ cd /var/www/threatradar
 $ npm install
 
 PASO 4: Configurar variables .env específicas en tu máquina de Hetzner
@@ -387,20 +387,20 @@ GEMINI_API_KEY=tu_api_key_servidor_secreta
 PASO 5: Compilar las aplicaciones y levantar el servicio con PM2
 $ npm run build
 $ sudo npm install -y pm2 -g
-$ pm2 start dist/server.cjs --name "threadradar-radar"
+$ pm2 start dist/server.cjs --name "threatradar-radar"
 $ pm2 startup
 (Ejecuta la línea de comandos de arranque seguro que PM2 imprima de vuelta)
 $ pm2 save
 
 PASO 6: Configurar Nginx como Proxy Inverso en tu Servidor Hetzner
 Crea el archivo de configuración en Nginx:
-$ sudo nano /etc/nginx/sites-available/threadradar
+$ sudo nano /etc/nginx/sites-available/threatradar
 
 Asigna el siguiente contenido de enrutamiento (redirige el puerto 80 al puerto 3000):
 === CONFIGURACIÓN NGINX ===
 server {
     listen 80;
-    server_name threadradar.viajeinteligencia.com;
+    server_name threatradar.viajeinteligencia.com;
 
     location / {
         proxy_pass http://127.0.0.1:3000;
@@ -414,12 +414,12 @@ server {
 ===========================
 
 Enlaza la configuración de Nginx para activarla en producción:
-$ sudo ln -s /etc/nginx/sites-available/threadradar /etc/nginx/sites-enabled/
+$ sudo ln -s /etc/nginx/sites-available/threatradar /etc/nginx/sites-enabled/
 $ sudo nginx -t
 $ sudo systemctl restart nginx
 
 PASO 7: Instalar un Certificado SSL Gratuito y Auto-renovable (Certbot)
-$ sudo certbot --nginx -d threadradar.viajeinteligencia.com
+$ sudo certbot --nginx -d threatradar.viajeinteligencia.com
 
 --------------------------------------------------------------------------------
 4. CONFIGURACIÓN Y VIABILIDAD DE STREAMING 24/7 EN YOUTUBE (RTMP PUSH)
@@ -432,7 +432,7 @@ Opciones de Transmisión:
 OPCIÓN A_ OBS Studio desde tu Laptop (Sencillo y Controlado)
    Precioso para transmisiones o pruebas cortas de captación de leads.
    - Agrega un input de tipo "Navegador" (Browser Source) en OBS.
-   - Pega tu URL de producción: https://threadradar.viajeinteligencia.com
+   - Pega tu URL de producción: https://threatradar.viajeinteligencia.com
    - Custom CSS en OBS: "body { background-color: black !important; }"
 
 OPCIÓN B_ Ingestión Headless Automática desde un VPS dedicado (Recomendado 24/7)
@@ -442,7 +442,7 @@ OPCIÓN B_ Ingestión Headless Automática desde un VPS dedicado (Recomendado 24
    
    $ xvfb-run --server-args="-screen 0 1920x1080x24" google-chrome --no-sandbox \\
      --kiosk --window-position=0,0 --window-size=1920,1080 \\
-     https://threadradar.viajeinteligencia.com &
+     https://threatradar.viajeinteligencia.com &
      
    $ ffmpeg -f x11grab -s 1920x1080 -i :0.0 -vcodec libx264 -preset veryfast \\
      -maxrate 3500k -bufsize 7000k -acodec aac -b:a 128k -f flv \\
@@ -450,7 +450,7 @@ OPCIÓN B_ Ingestión Headless Automática desde un VPS dedicado (Recomendado 24
 
 ESTRATEGIA PARA MONETIZACIÓN Y CAPTACIÓN:
 - Inserta una etiqueta flotante estática de llamado a la acción (CTA) en pantalla:
-  "👉 AUDITA TU PROPIA IP TOTALMENTE GRATIS EN: threadradar.viajeinteligencia.com"
+  "👉 AUDITA TU PROPIA IP TOTALMENTE GRATIS EN: threatradar.viajeinteligencia.com"
 - Con el SEO configurado en tu index.html, añade tus marcos de Google AdSense 
   para capitalizar el alto tráfico orgánico proveniente de los espectadores del mapa.
 ================================================================================`;
@@ -567,7 +567,7 @@ Generated and validated under security clearance of system architect: M. Castill
   };
 
   const handleShareApp = (platform: "twitter" | "linkedin" | "whatsapp" | "copy") => {
-    const shareUrl = "https://threadradar.viajeinteligencia.com";
+    const shareUrl = "https://threatradar.viajeinteligencia.com";
     const shareText = "🚨 Analizando tráfico hostil e intrusiones globales en tiempo real con ThreatRadar de M. Castillo. Herramienta OSINT increíble. ¡Pruébala gratis y audita tu IP! 👇";
     
     if (platform === "twitter") {
@@ -1287,14 +1287,14 @@ Generated and validated under security clearance of system architect: M. Castill
                 <div className="border-t md:border-t-0 md:border-l border-[#27272A] pt-1.5 md:pt-0 md:pl-3 space-y-1.5">
                   <div>
                     <div className="text-white font-bold uppercase text-[9px]">DIRECT SUPPORT MAIL</div>
-                    <a href="mailto:threadradar@viajeinteligencia.com" className="text-blue-500 hover:underline font-bold text-[9px] block mt-0.5 select-all">
-                      threadradar@viajeinteligencia.com
+                    <a href="mailto:threatradar@viajeinteligencia.com" className="text-blue-500 hover:underline font-bold text-[9px] block mt-0.5 select-all">
+                      threatradar@viajeinteligencia.com
                     </a>
                   </div>
                   <div>
                     <div className="text-[#71717A] uppercase text-[7px] font-bold">STATION ADDRESS:</div>
-                    <a href="https://threadradar.viajeinteligencia.com" target="_blank" rel="noopener noreferrer" className="text-zinc-300 hover:text-white hover:underline flex items-center gap-0.5 font-semibold text-[8px] leading-none">
-                      threadradar.viajeinteligencia.com
+                    <a href="https://threatradar.viajeinteligencia.com" target="_blank" rel="noopener noreferrer" className="text-zinc-300 hover:text-white hover:underline flex items-center gap-0.5 font-semibold text-[8px] leading-none">
+                      threatradar.viajeinteligencia.com
                       <ExternalLink className="h-2 w-2 inline text-blue-500" />
                     </a>
                   </div>
@@ -1608,7 +1608,7 @@ Generated and validated under security clearance of system architect: M. Castill
         </div>
         <div className="italic text-zinc-600">"What cannot be seen, cannot be defended"</div>
         <div>
-          © 2026 M. CASTILLO | THREATRADAR PROJECT | <a href="mailto:threadradar@viajeinteligencia.com" className="text-zinc-500 hover:text-white hover:underline">threadradar@viajeinteligencia.com</a>
+          © 2026 M. CASTILLO | THREATRADAR PROJECT | <a href="mailto:threatradar@viajeinteligencia.com" className="text-zinc-500 hover:text-white hover:underline">threatradar@viajeinteligencia.com</a>
         </div>
       </footer>
     </div>
